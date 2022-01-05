@@ -3,80 +3,196 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="11"/>
-    <Units Count="8">
+    <Units Count="4">
       <Unit0>
         <Filename Value="TestPThread.dpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="305"/>
-        <CursorPos X="46" Y="311"/>
-        <UsageCount Value="36"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="147"/>
+        <CursorPos Y="161"/>
+        <UsageCount Value="82"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit0>
       <Unit1>
         <Filename Value="libc.Types.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="4"/>
+        <CursorPos X="6" Y="9"/>
+        <UsageCount Value="82"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit1>
       <Unit2>
         <Filename Value="pthreads.win.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="227"/>
-        <CursorPos X="56" Y="240"/>
-        <UsageCount Value="36"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="6308"/>
+        <CursorPos Y="6314"/>
+        <UsageCount Value="82"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit2>
       <Unit3>
-        <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\winunits-jedi\src\jwawinbase.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="2321"/>
-        <CursorPos X="33" Y="2340"/>
-        <UsageCount Value="18"/>
+        <Filename Value="D:\lazarus\fpc\3.2.0\source\rtl\inc\threadh.inc"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="127"/>
+        <CursorPos X="21" Y="130"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit3>
-      <Unit4>
-        <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\winunits-jedi\src\jwawinnt.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="7565"/>
-        <CursorPos X="60" Y="7573"/>
-        <UsageCount Value="18"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\winunits-jedi\src\jwawinerror.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="31"/>
-        <CursorPos X="17" Y="45"/>
-        <UsageCount Value="18"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\inc\threadh.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="129"/>
-        <CursorPos X="41" Y="139"/>
-        <UsageCount Value="10"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\inc\systemh.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="448"/>
-        <CursorPos X="25" Y="451"/>
-        <UsageCount Value="10"/>
-      </Unit7>
     </Units>
-    <General>
-      <ActiveWindowIndexAtStart Value="-1"/>
-    </General>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="6309" TopLine="6302"/>
+      </Position1>
+      <Position2>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="2577" TopLine="2571"/>
+      </Position2>
+      <Position3>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="6309" TopLine="6302"/>
+      </Position3>
+      <Position4>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="2580" TopLine="2574"/>
+      </Position4>
+      <Position5>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="6309" TopLine="6302"/>
+      </Position5>
+      <Position6>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="2580" TopLine="2574"/>
+      </Position6>
+      <Position7>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="6309" TopLine="6302"/>
+      </Position7>
+      <Position8>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="2028" TopLine="2022"/>
+      </Position8>
+      <Position9>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="6311" TopLine="6304"/>
+      </Position9>
+      <Position10>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="2028" TopLine="2022"/>
+      </Position10>
+      <Position11>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="6311" TopLine="6304"/>
+      </Position11>
+      <Position12>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="124" TopLine="119"/>
+      </Position12>
+      <Position13>
+        <Filename Value="pthreads.win.pas"/>
+        <Caret Line="6314" TopLine="6308"/>
+      </Position13>
+      <Position14>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="124" TopLine="119"/>
+      </Position14>
+      <Position15>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="125" TopLine="119"/>
+      </Position15>
+      <Position16>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="127" TopLine="119"/>
+      </Position16>
+      <Position17>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="128" TopLine="119"/>
+      </Position17>
+      <Position18>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="129" TopLine="119"/>
+      </Position18>
+      <Position19>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="130" TopLine="119"/>
+      </Position19>
+      <Position20>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="131" TopLine="119"/>
+      </Position20>
+      <Position21>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="140" TopLine="133"/>
+      </Position21>
+      <Position22>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="143" TopLine="133"/>
+      </Position22>
+      <Position23>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="125" TopLine="118"/>
+      </Position23>
+      <Position24>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="145" TopLine="139"/>
+      </Position24>
+      <Position25>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="146" TopLine="139"/>
+      </Position25>
+      <Position26>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="147" TopLine="139"/>
+      </Position26>
+      <Position27>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="149" TopLine="139"/>
+      </Position27>
+      <Position28>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="96" TopLine="88"/>
+      </Position28>
+      <Position29>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="150" TopLine="144"/>
+      </Position29>
+      <Position30>
+        <Filename Value="TestPThread.dpr"/>
+        <Caret Line="155" TopLine="143"/>
+      </Position30>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes Count="0" ActiveMode=""/>
     </RunParams>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="3">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="pthreads.win.pas"/>
+        <Line Value="6795"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="TestPThread.dpr"/>
+        <Line Value="124"/>
+      </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="TestPThread.dpr"/>
+        <Line Value="145"/>
+      </Item3>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>

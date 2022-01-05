@@ -1,4 +1,4 @@
-program TestPThread;
+program Test_cleanup0;
 
 {$IFDEF FPC}
   {$MODE Delphi}//MacPas}
@@ -51,20 +51,31 @@ type
   PsharedInt_t = ^sharedInt_t;
 
 const
-  NUMTHREADS = 4;
+  NUMTHREADS = 10;
 
 var
   threadbag : array[0..(NUMTHREADS + 1)-1] of bag_t;
   pop_count : sharedInt_t;
-  go :pthread_barrier_t = nil;
+
+
+procedure increment_pop_count( arg : Pointer);
+var
+  sI: PsharedInt_t;
+begin
+  sI := PsharedInt_t (arg);
+  EnterCriticalSection(&sI.cs);
+  Inc(sI.i);
+  LeaveCriticalSection(&sI.cs);
+end;
+
 
 function mythread( arg : Pointer):Pointer;
 var
-
+  result0 :int;
   bag : Pbag_t;
-
+  L_cleanup: ptw32_cleanup_t;
 begin
-  result := PTHREAD_CANCELED;//Pointer(int(size_t(PTHREAD_CANCELED)) + 1);
+  result0 := 0;
   bag := Pbag_t ( arg);
   assert(bag = @threadbag[bag.threadnum]);
   assert(bag.started = 0);
@@ -72,13 +83,19 @@ begin
 
   assert(pthread_setcancelstate(Int(PTHREAD_CANCEL_ENABLE), nil) = 0);
   assert(pthread_setcanceltype(Int(PTHREAD_CANCEL_ASYNCHRONOUS), nil) = 0);
+  L_cleanup.routine := increment_pop_count;
+  L_cleanup.arg := Pointer(@pop_count);
+  ptw32_push_cleanup(@L_cleanup, increment_pop_count, Pointer(@pop_count));
+  try
+     Sleep(100);
 
-  bag.count := 0;
-  while bag.count < 100 do
-  begin
-    Sleep (100);Inc(bag.count);
+  finally
+     //if( _execute>0 )then// or (AbnormalTermination()) then
+       //L_cleanup.routine( L_cleanup.arg );
+     ptw32_pop_cleanup(1);
   end;
 
+  Result := Pointer(size_t(result0));
 end;
 
 
@@ -89,47 +106,25 @@ var
   fail : bool;
   result0 : Pointer;
   stderr: string;
-  dwMode : DWORD;
 begin
   _failed := 0;
-
-
+  memset(@pop_count, 0, sizeof(sharedInt_t));
+  InitializeCriticalSection(&pop_count.cs);
   t[0] := pthread_self();
   assert(t[0].p <> nil);
-
-  dwMode := SetErrorMode(SEM_NOGPFAULTERRORBOX);
-  SetErrorMode(dwMode or SEM_NOGPFAULTERRORBOX);
-
   for i := 1 to NUMTHREADS do
   begin
     threadbag[i].started := 0;
     threadbag[i].threadnum := i;
-    assert(pthread_create(@t[i], nil, mythread, Addr(threadbag[i])) = 0);
-   
+    assert(pthread_create(@t[i], nil, mythread, Pointer( @threadbag[i])) = 0);
   end;
 
-  (*
-   * Code to control or manipulate child threads should probably go here.
-   *)
-  Sleep (NUMTHREADS * 100);
+  Sleep(500);
+
+  Sleep(NUMTHREADS * 100);
 
   for i := 1 to NUMTHREADS do
   begin
-     assert(pthread_cancel(t[i]) = 0);
-   
-  end;
-
-  (*
-   * Give threads time to complete.
-   *)
-  Sleep (NUMTHREADS * 100);
-
-  (*
-   * Standard check that all threads started.
-   *)
-  for i := 1 to NUMTHREADS do
-  begin
-
     if  0>= threadbag[i].started then
     begin
       _failed  := _failed  or ( not threadbag[i].started);
@@ -137,33 +132,32 @@ begin
     end;
   end;
 
-  assert(0>=_failed);
+  assert( 0>=_failed);
 
-  (*
-   * Check any results here. Set "failed" and only print output on failure.
-   *)
   _failed := 0;
   for i := 1 to NUMTHREADS do
   begin
     fail := Boolean(0);
     result0 := Pointer(0);
     assert(pthread_join(t[i], @result0) = 0);
-    fail := (result0 <> PTHREAD_CANCELED);
+    fail := (result0 = PTHREAD_CANCELED);
     if fail then
     begin
-      stderr := Format( 'Thread %d: started %d: count %d',
+      stderr := Format( 'Thread %d: started %d: result %d'#10,
         [i,
         threadbag[i].started,
-        threadbag[i].count]);
+      int(size_t(result0))]);
       //fflush(stderr);
       Writeln(stderr);
     end;
-    if (_failed >0 ) or (fail) then
-       _failed := 1;
+    if (Boolean(_failed))  or  (fail) then
+       _failed := 1
+    else
+       _failed := 0;
   end;
-
   assert( not Boolean(_failed));
-
+  assert(pop_count.i = NUMTHREADS);
+  DeleteCriticalSection(&pop_count.cs);
 
   Result := 0;
 end;

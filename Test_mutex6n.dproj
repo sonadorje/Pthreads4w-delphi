@@ -3,7 +3,7 @@
         <ProjectGuid>{398057DC-8736-4E9B-8C4B-FE5403015CC5}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
         <FrameworkType>None</FrameworkType>
-        <MainSource>TestPThread.dpr</MainSource>
+        <MainSource>Test_mutex6n.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -43,7 +43,7 @@
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-        <SanitizedProjectName>TestPThread</SanitizedProjectName>
+        <SanitizedProjectName>Test_mutex6n</SanitizedProjectName>
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
@@ -83,21 +83,6 @@
         </DelphiCompile>
         <DCCReference Include="libc.Types.pas"/>
         <DCCReference Include="pthreads.win.pas"/>
-        <DCCReference Include="pthreads.sem.pas"/>
-        <DCCReference Include="pthreads.sched.pas"/>
-        <DCCReference Include="pthreads.barrier.pas"/>
-        <DCCReference Include="pthreads.mutex.pas"/>
-        <DCCReference Include="pthreads.mutexattr.pas"/>
-        <DCCReference Include="pthreads.spin.pas"/>
-        <DCCReference Include="pthreads.attr.pas"/>
-        <DCCReference Include="pthreads.cond.pas"/>
-        <DCCReference Include="pthreads.condattr.pas"/>
-        <DCCReference Include="pthreads.rwlock.pas"/>
-        <DCCReference Include="pthreads.ptw32.pas"/>
-        <DCCReference Include="pthreads.oldmutex.pas"/>
-        <DCCReference Include="pthreads.core.pas"/>
-        <DCCReference Include="pthreads.CPU.pas"/>
-        <DCCReference Include="QueueUser_APCEx.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -116,7 +101,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">TestPThread.dpr</Source>
+                    <Source Name="MainSource">Test_mutex6n.dpr</Source>
                 </Source>
                 <VersionInfo>
                     <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
@@ -176,9 +161,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\TestPThread.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="d:\MyOutput\Win32\Debug\Test_mutex6n.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>TestPThread.exe</RemoteName>
+                        <RemoteName>Test_mutex6n.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -947,7 +932,10 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="iPhone_Launch320">
-                    <Platform Name="iOSDevice">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSSimulator">
@@ -965,7 +953,10 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="iPhone_Launch640">
-                    <Platform Name="iOSDevice">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSSimulator">
@@ -973,7 +964,10 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="iPhone_Launch640x1136">
-                    <Platform Name="iOSDevice">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSSimulator">
@@ -1101,7 +1095,10 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectiOSDeviceResourceRules">
-                    <Platform Name="iOSDevice">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -1250,8 +1247,8 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSDevice" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>

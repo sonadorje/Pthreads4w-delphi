@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.881,=C:\Users\Administrator\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.685,=D:\MyCode\Pthread-win\libc.Types.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.897,=D:\MyCode\Pthread-win\pthreads4w.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.890,=C:\Users\Administrator\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.398,D:\MyCode\Pthread-win\pthreads.win.pas=D:\MyCode\Pthread-win\pthreads4w.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.178,D:\MyCode\Pthread-win\TestPThread.dproj=C:\Users\Administrator\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.396,D:\MyCode\Pthreads4w-delphi\TestPThread.dproj=D:\MyCode\Pthreads4w-delphi\Test_mutex6n.dproj</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>
+</BorlandProject>

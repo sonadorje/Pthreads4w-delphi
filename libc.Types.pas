@@ -6,10 +6,12 @@ unit libc.Types;
 
 interface
 
-{$IFnDEF FPC}
 uses
+{$IFnDEF FPC}
+
   Winapi.Windows, System.Win.Crtl, System.SysUtils, System.DateUtils, System.TypInfo, System.Math;
 {$ELSE}
+   Windows;
 {$ENDIF}
 
 const
@@ -120,7 +122,7 @@ type
   PClass = ^TClass;
   PPbyte = ^PByte;
   PPVarRec = ^PVarRec;
-
+  PExceptionPointers = ^TExceptionPointers;
   PObject = ^TObject;
   uint16_t = uint16;
   int16_t = Int16;
@@ -132,9 +134,10 @@ type
   __off_t = __int64_t;
   off_t = __off_t;
   bool     = Boolean ;
+  unsigned = UInt32;
   uint32_t = UInt32;
   int32_t  = int32;
-  long = LongInt;
+  
   longlong = int64;
   Plonglong = ^longlong;
   ulonglong = UInt64;
@@ -339,7 +342,8 @@ end;
 
 //  procedure memset(var X; Value: Integer; Count: NativeInt );
   procedure va_copy(orgap, ap: array of const);
-  function PreDec(var n : size_t): size_t;
+  function PreDec(var n : integer): Integer; overload;
+  function PreDec(var n : size_t): size_t;overload;
   //function to_digit(c: Char): Integer; inline;
 
   //function iswspace( wc : wint_t):integer;
@@ -351,7 +355,8 @@ end;
   function calloc(Anum, ASize: Integer): Pointer;
   function _set_errno( n : integer):integer;
   function _get_errno(value: PInteger):integer;
-  function get_result(result1, result2: Integer): Integer;inline;
+  function get_result(result1, result2: Integer): Integer;inline; overload
+  function get_result(condition: Boolean;result1, result2: integer): Integer; inline; overload;
   //function memcmp(const s1, s2 : Pointer; n : size_t):integer;
 
   function strncat(s1 : Pchar;const s2 : Pchar; n : size_t):Pchar;
@@ -375,7 +380,7 @@ implementation
 procedure interlocked_inc_with_conditionals( a : Pinteger);
 begin
   if a <> nil then
-    if InterlockedIncrement(Plong( a)^) = -1 then
+    if InterlockedIncrement(PInteger( a)^) = -1 then
       begin
         a^ := 0;
       end;
@@ -385,7 +390,7 @@ end;
 procedure interlocked_dec_with_conditionals( a : Pinteger);
 begin
   if a <> nil then
-     if InterlockedDecrement(Plong( a)^) = -1 then
+     if InterlockedDecrement(PInteger( a)^) = -1 then
       begin
         a^ := 0;
       end;
@@ -478,6 +483,13 @@ begin
     Exit(0);
 end;
 }
+function get_result(condition: Boolean;result1, result2: integer): Integer;
+begin
+  if condition  then
+     Result := Result1
+  else
+     Result := Result2;
+end;
 
 function get_result(result1, result2: integer): Integer;
 begin
@@ -522,7 +534,12 @@ function PreDec(var n : size_t): size_t;
 begin
    Dec(n);
    Result := n;
+end;
 
+function PreDec(var n : integer): Integer;
+begin
+   Dec(n);
+   Result := n;
 end;
 
 //bionic\libc\upstream-openbsd\lib\libc\string\strncpy.c

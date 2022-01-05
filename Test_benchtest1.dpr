@@ -40,7 +40,7 @@ begin
 {$IFDEF __PTW32_MUTEX_TYPES}
   assert(pthread_mutexattr_settype(@ma, mType) = 0);
 {$ENDIF}
-  assert(pthread_mutex_init(@mx, @ma) = 0);
+  assert(pthread_mutex_init(mx, @ma) = 0);
   //TESTSTART
   j := 0; k := 0;
    //__PTW32_FTIME(@currSysTimeStart);
@@ -48,7 +48,7 @@ begin
    for i := 0 to ITERATIONS-1 do
    begin
       Inc(j);
-      pthread_mutex_lock(@mx);
+      pthread_mutex_lock(mx);
       pthread_mutex_unlock(@mx);
 //TESTSTOP
 
@@ -63,7 +63,7 @@ begin
   printf( '%-45s %15ld %15.3f'#10,
           testNameString,
           durationMilliSecs,
-          float( durationMilliSecs * 1E3 / ITERATIONS));
+          ( durationMilliSecs * 1E3 / ITERATIONS));
 end;
 
 procedure dummy_call();
@@ -108,7 +108,7 @@ begin
   Writeln(Format( '%-45s %15d %15.3f',
       ['Dummy call x 2',
           durationMilliSecs,
-          float(durationMilliSecs * 1E3 / ITERATIONS)]));
+          (durationMilliSecs * 1E3 / ITERATIONS)]));
   //TESTSTART
   j := 0; k := 0;
    starttime := GetTickCount;//__PTW32_FTIME(@currSysTimeStart);
@@ -127,7 +127,7 @@ begin
   Writeln(Format( '%-45s %15d %15.3f',
       ['Dummy call . Interlocked with cond x 2',
           durationMilliSecs,
-          float( durationMilliSecs * 1E3 / ITERATIONS)]));
+          ( durationMilliSecs * 1E3 / ITERATIONS)]));
   //TESTSTART
   j := 0; k := 0;
    starttime := GetTickCount;//__PTW32_FTIME(@currSysTimeStart);
@@ -146,7 +146,7 @@ begin
   Writeln(Format( '%-45s %15d %15.3f',
       ['InterlockedOp x 2',
           durationMilliSecs,
-          float( durationMilliSecs * 1E3 / ITERATIONS)]));
+          ( durationMilliSecs * 1E3 / ITERATIONS)]));
 
   InitializeCriticalSection(cs);
   //TESTSTART
@@ -170,7 +170,7 @@ begin
   Writeln(Format( '%-45s %15d %15.3f',
       ['Simple Critical Section',
           durationMilliSecs,
-          float( durationMilliSecs * 1E3 / ITERATIONS)]));
+          ( durationMilliSecs * 1E3 / ITERATIONS)]));
   {old_mutex_use := OLD_WIN32CS;
   assert(old_mutex_init(@ox, nil) = 0);
   TESTSTART

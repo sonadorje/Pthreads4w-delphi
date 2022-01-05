@@ -1,4 +1,4 @@
-program TestPThread;
+program Test_cancel2;
 
 {$IFDEF FPC}
   {$MODE Delphi}//MacPas}
@@ -60,25 +60,31 @@ var
 
 function mythread( arg : Pointer):Pointer;
 var
-
+  result0 :int;
   bag : Pbag_t;
 
 begin
-  result := PTHREAD_CANCELED;//Pointer(int(size_t(PTHREAD_CANCELED)) + 1);
+  result0 := 0;
   bag := Pbag_t ( arg);
   assert(bag = @threadbag[bag.threadnum]);
   assert(bag.started = 0);
   bag.started := 1;
 
   assert(pthread_setcancelstate(Int(PTHREAD_CANCEL_ENABLE), nil) = 0);
-  assert(pthread_setcanceltype(Int(PTHREAD_CANCEL_ASYNCHRONOUS), nil) = 0);
+  assert(pthread_setcanceltype(Int(PTHREAD_CANCEL_DEFERRED), nil) = 0);
 
-  bag.count := 0;
-  while bag.count < 100 do
-  begin
-    Sleep (100);Inc(bag.count);
+  try
+      (* Wait for go from main *)
+      pthread_barrier_wait(@go);
+      pthread_barrier_wait(@go);
+      pthread_testcancel();
+
+  except on E: Exception do
+      result0 := Result0 + 100;
   end;
 
+  result0 := Result0 + 1000;
+  Result := Pointer(size_t(result0));
 end;
 
 
@@ -89,7 +95,6 @@ var
   fail : bool;
   result0 : Pointer;
   stderr: string;
-  dwMode : DWORD;
 begin
   _failed := 0;
 
@@ -97,40 +102,38 @@ begin
   t[0] := pthread_self();
   assert(t[0].p <> nil);
 
-  dwMode := SetErrorMode(SEM_NOGPFAULTERRORBOX);
-  SetErrorMode(dwMode or SEM_NOGPFAULTERRORBOX);
+  assert(pthread_barrier_init(@go, Nil, NUMTHREADS + 1) = 0);
 
+  
   for i := 1 to NUMTHREADS do
   begin
     threadbag[i].started := 0;
     threadbag[i].threadnum := i;
     assert(pthread_create(@t[i], nil, mythread, Addr(threadbag[i])) = 0);
-   
+    if Pptw32_thread_t (t[1].p)^.cancelType <> 1 then
+       halt(1);
   end;
 
   (*
    * Code to control or manipulate child threads should probably go here.
    *)
-  Sleep (NUMTHREADS * 100);
+
+  pthread_barrier_wait(@go);
 
   for i := 1 to NUMTHREADS do
   begin
-     assert(pthread_cancel(t[i]) = 0);
+    if Pptw32_thread_t (t[i].p)^.cancelType <> 1 then
+       halt(1);
+    assert(pthread_cancel(t[i]) = 0);
    
   end;
 
-  (*
-   * Give threads time to complete.
-   *)
-  Sleep (NUMTHREADS * 100);
-
-  (*
-   * Standard check that all threads started.
-   *)
+  pthread_barrier_wait(@go);
+  //Standard check that all threads started.
   for i := 1 to NUMTHREADS do
   begin
 
-    if  0>= threadbag[i].started then
+    //if  0>= threadbag[i].started then
     begin
       _failed  := _failed  or ( not threadbag[i].started);
       WriteLn(Format('Thread %d: started %d',[i, threadbag[i].started]));
@@ -149,21 +152,20 @@ begin
     result0 := Pointer(0);
     assert(pthread_join(t[i], @result0) = 0);
     fail := (result0 <> PTHREAD_CANCELED);
-    if fail then
+    //if fail then
     begin
-      stderr := Format( 'Thread %d: started %d: count %d',
+      stderr := Format( 'Thread %d: started %d: location %d',
         [i,
         threadbag[i].started,
-        threadbag[i].count]);
+      int(size_t(result0))]);
       //fflush(stderr);
       Writeln(stderr);
     end;
-    if (_failed >0 ) or (fail) then
-       _failed := 1;
+    _failed := _failed or Int(fail);
   end;
 
   assert( not Boolean(_failed));
-
+  assert(pthread_barrier_destroy(@go) = 0);
 
   Result := 0;
 end;
